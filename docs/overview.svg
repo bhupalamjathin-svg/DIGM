@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="t d" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<title id="t">How DIGM frees GPU memory for more requests</title>
+<desc id="d">Left: with a full KV cache, four requests fill GPU memory and two wait. Right: with DIGM, each request keeps only its important tokens, so six requests run in the same memory. Below: DIGM scores tokens per attention head, drops the least important, packs the rest and returns freed blocks to vLLM.</desc>
+<rect x="1" y="1" width="1198" height="598" rx="20" fill="#FBFAF7" stroke="#DDD8CC" stroke-width="2"/>
+<text x="40" y="62" font-size="24" font-weight="700" fill="#0F1B2A">Full KV cache</text>
+<text x="40" y="92" font-size="14" fill="#5B6575" letter-spacing="1">GPU MEMORY</text>
+<rect x="40" y="102" width="520" height="54" rx="10" fill="#F1EEE6" stroke="#DDD8CC" stroke-width="1.5"/>
+<rect x="44.0" y="110" width="122" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="50.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="64.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="78.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="92.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="106.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="120.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="134.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="148.0" y="116" width="12" height="26" rx="2" fill="#33475B"/>
+<rect x="174.0" y="110" width="122" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="180.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="194.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="208.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="222.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="236.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="250.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="264.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="278.0" y="116" width="12" height="26" rx="2" fill="#33475B"/>
+<rect x="304.0" y="110" width="122" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="310.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="324.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="338.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="352.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="366.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="380.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="394.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="408.0" y="116" width="12" height="26" rx="2" fill="#33475B"/>
+<rect x="434.0" y="110" width="122" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="440.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="454.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="468.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="482.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="496.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="510.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="524.0" y="116" width="12" height="26" rx="2" fill="#33475B"/><rect x="538.0" y="116" width="12" height="26" rx="2" fill="#33475B"/>
+<text x="640" y="62" font-size="24" font-weight="700" fill="#0F1B2A">With DIGM</text>
+<text x="640" y="92" font-size="14" fill="#5B6575" letter-spacing="1">GPU MEMORY</text>
+<rect x="640" y="102" width="520" height="54" rx="10" fill="#F1EEE6" stroke="#DDD8CC" stroke-width="1.5"/>
+<rect x="645.0" y="110" width="80" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="651.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="665.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="679.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="693.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="707.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/>
+<rect x="731.0" y="110" width="80" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="737.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="751.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="765.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="779.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="793.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/>
+<rect x="817.0" y="110" width="80" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="823.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="837.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="851.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="865.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="879.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/>
+<rect x="903.0" y="110" width="80" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="909.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="923.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="937.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="951.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="965.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/>
+<rect x="989.0" y="110" width="80" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="995.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1009.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1023.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1037.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1051.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/>
+<rect x="1075.0" y="110" width="80" height="38" rx="6" fill="#FFFFFF" stroke="#DDD8CC" stroke-width="1.5"/><rect x="1081.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1095.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1109.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1123.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/><rect x="1137.0" y="116" width="12" height="26" rx="2" fill="#F08A2E"/>
+<path d="M578 129 H616" stroke="#0F1B2A" stroke-width="2.5" fill="none"/><path d="M610 121 L622 129 L610 137 Z" fill="#0F1B2A"/>
+<rect x="40" y="180" width="122" height="38" rx="6" fill="none" stroke="#5B6575" stroke-width="1.5" stroke-dasharray="5 4"/>
+<rect x="170" y="180" width="122" height="38" rx="6" fill="none" stroke="#5B6575" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="308" y="205" font-size="17" fill="#5B6575">2 requests waiting</text>
+<text x="40" y="252" font-size="18" fill="#0F1B2A">Memory is full, so new requests wait.</text>
+<circle cx="650" cy="199" r="7" fill="#2E9E6B"/><text x="666" y="205" font-size="17" fill="#5B6575">all 6 requests running</text>
+<text x="640" y="252" font-size="18" fill="#0F1B2A">The same memory holds more requests.</text>
+<line x1="40" y1="282" x2="1160" y2="282" stroke="#DDD8CC" stroke-width="1.5"/>
+<text x="40" y="318" font-size="14" fill="#5B6575" letter-spacing="1">ONE REQUEST, ONLY WHEN MEMORY RUNS SHORT</text>
+<rect x="40" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="76" y="338" width="30" height="40" rx="5" fill="none" stroke="#B4AEA0" stroke-width="1.8" stroke-dasharray="5 4"/>
+<rect x="112" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="148" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="184" y="338" width="30" height="40" rx="5" fill="none" stroke="#B4AEA0" stroke-width="1.8" stroke-dasharray="5 4"/>
+<rect x="220" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="256" y="338" width="30" height="40" rx="5" fill="none" stroke="#B4AEA0" stroke-width="1.8" stroke-dasharray="5 4"/>
+<rect x="292" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<path d="M344 358 H384" stroke="#0F1B2A" stroke-width="2.5" fill="none"/><path d="M378 350 L390 358 L378 366 Z" fill="#0F1B2A"/>
+<rect x="412" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="448" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="484" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="520" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="556" y="338" width="30" height="40" rx="5" fill="#F08A2E"/>
+<rect x="602" y="338" width="30" height="40" rx="5" fill="none" stroke="#2E9E6B" stroke-width="2"/>
+<rect x="638" y="338" width="30" height="40" rx="5" fill="none" stroke="#2E9E6B" stroke-width="2"/>
+<rect x="674" y="338" width="30" height="40" rx="5" fill="none" stroke="#2E9E6B" stroke-width="2"/>
+<text x="40" y="404" font-size="15" fill="#5B6575">least important tokens are dropped</text>
+<text x="412" y="404" font-size="15" fill="#5B6575">kept tokens are packed</text>
+<text x="602" y="404" font-size="15" fill="#2E9E6B">freed blocks return to vLLM</text>
+<circle cx="841" cy="346" r="11" fill="#0F1B2A"/><text x="841" y="351" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">1</text><text x="862" y="351" font-size="16" fill="#0F1B2A">Score every token, per attention head</text>
+<circle cx="841" cy="376" r="11" fill="#0F1B2A"/><text x="841" y="381" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">2</text><text x="862" y="381" font-size="16" fill="#0F1B2A">Drop the least important ones</text>
+<circle cx="841" cy="406" r="11" fill="#0F1B2A"/><text x="841" y="411" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">3</text><text x="862" y="411" font-size="16" fill="#0F1B2A">Pack the rest and free the memory</text>
+<line x1="40" y1="440" x2="1160" y2="440" stroke="#DDD8CC" stroke-width="1.5"/>
+<text x="40" y="500" font-size="38" font-weight="700" fill="#0F1B2A">1.4–1.8×</text>
+<text x="40" y="530" font-size="16" fill="#5B6575">throughput</text>
+<text x="420" y="500" font-size="38" font-weight="700" fill="#0F1B2A">17–41%</text>
+<text x="420" y="530" font-size="16" fill="#5B6575">shorter time to first token</text>
+<text x="800" y="500" font-size="38" font-weight="700" fill="#0F1B2A">2–3 points</text>
+<text x="800" y="530" font-size="16" fill="#5B6575">LongBench accuracy cost</text>
+<text x="1160" y="572" font-size="13" fill="#5B6575" text-anchor="end">Top panels are a schematic. Numbers: three 7–8B models, keep 25% of context, vLLM 0.30.0.</text>
+</svg>

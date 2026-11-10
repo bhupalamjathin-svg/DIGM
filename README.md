@@ -14,7 +14,12 @@ KV-cache eviction for LLM serving, built on vLLM</p>
 <a href="#results">Results</a> ·
 <a href="#getting-started">Getting started</a> ·
 <a href="#reproducing-the-paper">Reproducing the paper</a> ·
+<a href="#contributing">Contributing</a> ·
 <a href="#citation">Citation</a>
+</p>
+
+<p align="center">
+<img src="docs/overview.svg" alt="With a full KV cache, four requests fill GPU memory and two wait. With DIGM, each request keeps only its important tokens, so six requests run in the same memory." width="900">
 </p>
 
 ---
@@ -142,6 +147,7 @@ Settings are `DIGM_*` environment variables. They are commented near the top of 
 ## Repository layout
 
 ```
+docs/overview.svg      the diagram at the top of this page
 paper_artifact/
   digm_vllm_v18.py     the script behind the paper's serving results (system + benchmarks in one file)
   run_lab_tue.sh       governor vs trigger vs sensitivity-aware governor; LongBench serving
@@ -163,6 +169,10 @@ paper_artifact/
 - Split the script into a small library (core, benchmark, scoring).
 - Port to the current vLLM release.
 - Larger models and multi-GPU.
+
+## Contributing
+
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to report a bug, what to check before a pull request, and how contributions are licensed.
 
 ## Citation
 
