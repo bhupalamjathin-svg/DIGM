@@ -190,4 +190,4 @@ Required Notice: Copyright (c) 2026 Sai Jathin Bhupalam and Naveen N C
 
 DIGM is built on [vLLM](https://github.com/vllm-project/vllm). Accuracy is measured on RULER and LongBench.
 
-The idea, experiments and results are the authors'. An AI assistant (Claude) was used heavily to write the code, the scripts and this README. The authors ran every experiment and checked the results.
+The idea, experiments and results are the authors'. An AI assistant (Claude) was used to write the code. The authors ran every experiment and checked the results.
