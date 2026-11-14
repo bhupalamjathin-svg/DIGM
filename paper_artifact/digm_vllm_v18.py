@@ -78,7 +78,11 @@ extra = {"quantization": "awq"} if "awq" in MODEL.lower() else {}
 if LONG:
     # a request may be LONGER than the whole KV pool: it is evicted chunk by chunk, so it never needs it all.
     # vLLM refuses such a max_model_len at start-up; relax only that check (in-process engine).
-    import vllm.v1.core.kv_cache_utils as _kvu
+    try:                                                       # vLLM >= 0.33 moved this check to kv_cache_planning
+        import vllm.v1.core.kv_cache_planning as _kvu
+        _kvu._check_enough_kv_cache_memory
+    except (ImportError, AttributeError):                      # vLLM 0.30
+        import vllm.v1.core.kv_cache_utils as _kvu
     _orig_check = _kvu._check_enough_kv_cache_memory
     def _relaxed_check(available_memory, get_needed_memory, max_model_len, estimate_max_model_len):
         if available_memory <= 0:
