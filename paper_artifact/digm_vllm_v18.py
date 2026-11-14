@@ -113,7 +113,23 @@ assert len(shp) == 4 and shp[1] == H and shp[-1] == 2 * D, f"unexpected KV layou
 BS = shp[2]
 dev = kv[0].device
 tok = llm.get_tokenizer()
-print(f"\n[vLLM] {MODEL} | layers {L} | kv heads {H} | D {D} | block {BS} | l*={LSTAR} | free blocks {pool.get_num_free_blocks()}")
+USE_EVICT_API = hasattr(kvm, "evict_token_range_for_request") and os.environ.get("DIGM_EVICT_API", "1") == "1"
+def free_tail_blocks(rid, keep_nb):
+    """Free a live request's blocks from index keep_nb on. Returns blocks returned to the pool.
+    Uses vLLM's evict_token_range_for_request when the engine has it (PR #53871);
+    otherwise frees the tail blocks directly (vLLM 0.30 / 0.33)."""
+    blocks = mgr.req_to_blocks[rid]
+    before = pool.get_num_free_blocks()
+    if USE_EVICT_API:
+        a, b, _ = kvm.evict_token_range_for_request(rid, keep_nb * BS, len(blocks) * BS)
+        assert a == keep_nb * BS, (a, keep_nb * BS)
+    else:
+        tail = blocks[keep_nb:]; del blocks[keep_nb:]
+        if rid in mgr.num_cached_block:
+            mgr.num_cached_block[rid] = min(mgr.num_cached_block[rid], keep_nb)
+        pool.free_blocks(reversed(tail))
+    return pool.get_num_free_blocks() - before
+print(f"\n[vLLM] {MODEL} | layers {L} | kv heads {H} | D {D} | block {BS} | l*={LSTAR} | free blocks {pool.get_num_free_blocks()} | evict API {USE_EVICT_API}")
 
 # ---------------- RoPE fix: per-request position offset, applied after slot mapping ----------------
 OFFSET = torch.zeros(runner.req_states.max_num_reqs, dtype=torch.int64, device=dev)
@@ -334,14 +350,7 @@ def evict(rid, keep, n, use_offset=True):
         req.prompt_token_ids = list(kept_ids)               # rebind: never mutate the caller's list
     req.num_prompt_tokens = kp
     req.num_computed_tokens = comp - d
-    blocks = mgr.req_to_blocks[rid]
-    tail = blocks[keep_nb:]
-    del blocks[keep_nb:]
-    if rid in mgr.num_cached_block:
-        mgr.num_cached_block[rid] = min(mgr.num_cached_block[rid], keep_nb)
-    free_before = pool.get_num_free_blocks()
-    pool.free_blocks(reversed(tail))
-    freed = pool.get_num_free_blocks() - free_before
+    freed = free_tail_blocks(rid, keep_nb)
     # 3) worker state: every counter shifts by -d
     rs = runner.req_states
     idx = rs.req_id_to_index[rid]
@@ -402,10 +411,7 @@ def evict_mid(rid, keep):
     req.num_prompt_tokens = len(kept_ids) + len(rest)
     req.num_computed_tokens = k
     keep_nb = -(-k // BS)
-    blocks = mgr.req_to_blocks[rid]; tail = blocks[keep_nb:]; del blocks[keep_nb:]
-    if rid in mgr.num_cached_block:
-        mgr.num_cached_block[rid] = min(mgr.num_cached_block[rid], keep_nb)
-    pool.free_blocks(reversed(tail))
+    free_tail_blocks(rid, keep_nb)
     rs = runner.req_states; idx = rs.req_id_to_index[rid]
     rs.num_computed_tokens.gpu[idx] = k
     rs.num_computed_tokens_np[idx] = k
